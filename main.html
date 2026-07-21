@@ -33,10 +33,31 @@
     <div class="item item24">24</div>
     <div class="item item25">25</div>
   </div>
-
 <script>
-//Your code goes here 
-</script>
+const slider = document.querySelector('.items');
+let isDown = false;
+let startX;
+let scrollLeft;
 
+slider.addEventListener('mousedown', (e) => {
+  isDown = true;
+  slider.classList.add('active');
+  startX = e.pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;
+});
+
+document.addEventListener('mouseup', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - slider.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  slider.scrollLeft = scrollLeft - walk;
+});
+</script>
   </body>
 </html>
